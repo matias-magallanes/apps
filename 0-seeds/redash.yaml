@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/matiasmagallanes/devops-redash-chart.git
     targetRevision: HEAD
     path: .
+    directory: 
+      recurse: true
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: redash
