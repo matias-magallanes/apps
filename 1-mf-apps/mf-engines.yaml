@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: mf-engines
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/matias-magallanes/dummy-chart.git
+      revision: HEAD
+      files:
+      - path: mfs-files/**/config.json
+  template:
+    metadata:
+      name: '{{path.basename}}-engine'
+      labels:
+        mundi.io/owner:  '{{owner}}'
+        mundi.io/backstage: '{{backstage-metadata}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/matias-magallanes/dummy-chart.git
+        targetRevision: HEAD
+        path: .
+        helm:
+          valueFiles:
+          - '{{path}}/values.yaml'
+          - '{{path}}/values-infra.yaml'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
