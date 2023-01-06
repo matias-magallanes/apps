@@ -21,7 +21,7 @@ spec:
       source:
         repoURL: https://github.com/matias-magallanes/dummy-chart.git
         targetRevision: HEAD
-        path: .
+        path: dummy-helmchart
         helm:
           valueFiles:
           - '{{path}}/values.yaml'
