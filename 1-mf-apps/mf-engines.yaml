@@ -24,8 +24,8 @@ spec:
         path: dummy-helmchart
         helm:
           valueFiles:
-          - '{{path}}/values.yaml'
-          - '{{path}}/values-infra.yaml'
+          - '../{{path}}/values.yaml'
+          - '../{{path}}/values-infra.yaml'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
